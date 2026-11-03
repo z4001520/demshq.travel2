@@ -1,3 +1,6 @@
+/* =====================================================================
+   Damashq Travel — VISA DATA (تأشيرات شركة دمشق للسفر والسياحة)
+   ===================================================================== */
 window.DAMASHQ_VISA = {
   messages: {
     noData: "للاستفسار عن سعر التأشيرة والمتطلبات، تواصل معنا",
@@ -6,200 +9,341 @@ window.DAMASHQ_VISA = {
     nationality: "قد تختلف شروط التأشيرة وأسعارها حسب جنسية جواز السفر. يرجى تأكيد جنسية المسافر مع الشركة قبل الحجز."
   },
   contact: { tel: "+9647701716661" },
-  estimatedPrices: {
-    currency: "USD",
-    values: {
-      ae: 90,
-      jo: 25,
-      eg: 130,
-      om: 30,
-      th: 75,
-      id: 100,
-      am: 20,
-      lk: 100,
-      sg: 110,
-      ge: 370,
-      tz: 70,
-      kh: 60,
-      ma: 155,
-      bh: 70,
-      cn: 350,
-      tr: 35,
-      sa: 158
-    }
-  },
   currencyLabels: { USD: "$", IQD: "د.ع", EUR: "€", AED: "د.إ", TRY: "₺" },
   countries: {
-    ae: {
-      verified: "2026-03-01",
-      visaType: "فيزا دبي - إقامة شهر غير متعدد (بالغ / طفل)",
-      price: { amount: 90, currency: "USD" },
-      processing: "1 - 3 يوم عمل",
-      documents: [
+    "ae": {
+      "verified": "2026-10-01",
+      "countryName": "الإمارات (دبي)",
+      "visaType": "فيزا البالغ أقامه شهر غير متعدد",
+      "price": { "amount": 90, "currency": "USD" },
+      "duration": "30 يوم",
+      "processing": "3 - 1 يوم عمل",
+      "validity": "60 يوم",
+      "documents": [
         "جواز سكنر",
         "صورة خلفية بيضاء دقة عالية",
-        "الجنسية العراقية أو البطاقة الموحدة",
+        "الجنسيه العراقية او البطاقة الموحده",
         "غرامة التجاوز عن مدة الإقامة 2000 دولار"
       ],
-      conditions: ["تنويه: سعر الطفل $45"]
-    },
-    jo: {
-      verified: "2026-03-01",
-      visaType: "فيزة الأردن السياحية (سفرة واحدة / متعددة)",
-      price: { amount: 25, currency: "USD" },
-      processing: "8 - 15 يوم عمل",
-      documents: [
-        "جواز سكنر (مطلوب جواز الزوج/ة في حال كان المسافر متزوجاً)",
-        "الأسعار غير شاملة رسوم دخول الأردن"
+      "options": [
+        {
+          "visaType": "فيزا الطفل أقامه شهر غير متعدد",
+          "duration": "30 يوم",
+          "price": { "amount": 45, "currency": "USD" }
+        }
       ]
     },
-    eg: {
-      verified: "2026-03-01",
-      visaType: "موافقات مصر الأمنية (الحربية / الماستر / أطفال ومسنين)",
-      price: { amount: 130, currency: "USD" },
-      processing: "1 - 8 أيام عمل حسب النوع",
-      documents: [
+    "jo": {
+      "verified": "2026-10-01",
+      "countryName": "الأردن",
+      "visaType": "فيزه الاردن سياحي شهر غير متعددة",
+      "price": { "amount": 25, "currency": "USD" },
+      "duration": "30 يوم سفره وحده",
+      "processing": "15 - 8 يوم عمل (الجمعه والسبت ويوم التقديم غير محسوب)",
+      "validity": "90 يوم من تاريخ الإصدار",
+      "documents": [
+        "جواز سكنر - (مطلوب جواز الزوج/ه في حال كان المسافر/ه متزوج/ه)",
+        "التقديم على النوع المتعدد (6 اشهر / سنة / 5 سنوات)",
+        "الاصدار يكون حسب قرار السفارة ولا يشترط ان يصدر النوع المطلوب",
+        "الأسعار غير شامل رسوم دخول الأردن"
+      ],
+      "options": [
+        {
+          "visaType": "فيزه الاردن سياحي شهر متعددة",
+          "duration": "30 يوم سفره متعدد",
+          "price": { "amount": 60, "currency": "USD" }
+        },
+        {
+          "visaType": "فيزه الاردن سياحي 6 اشهر متعددة",
+          "duration": "6 اشهر",
+          "price": { "amount": 75, "currency": "USD" }
+        },
+        {
+          "visaType": "فيزه الاردن سياحي سنه متعددة",
+          "duration": "سنه متعدد",
+          "price": { "amount": 100, "currency": "USD" }
+        },
+        {
+          "visaType": "فيزه الاردن سياحي 5 سنوات متعددة",
+          "duration": "5 سنوات متعدد",
+          "price": { "amount": 150, "currency": "USD" }
+        },
+        {
+          "visaType": "موافقه VIP",
+          "duration": "30 يوم سفره وحده",
+          "processing": "يكون اصدار الموافقه الامنيه VIP في اليوم الثاني عند الساعه 5 عصرا",
+          "validity": "50 يوم من تاريخ الإصدار",
+          "price": { "amount": 150, "currency": "USD" },
+          "documents": ["جواز سكنر"]
+        }
+      ]
+    },
+    "eg": {
+      "verified": "2026-10-01",
+      "countryName": "مصر",
+      "visaType": "موافقه الحربية البالغ (فوق 15 سنة - تحت 60 سنة)",
+      "price": { "amount": 130, "currency": "USD" },
+      "duration": "30 يوم سفره وحده",
+      "processing": "2-1 أيام عمل",
+      "validity": "30 يوم",
+      "documents": ["جواز سكنر"],
+      "options": [
+        {
+          "visaType": "موافقه الماستر البالغ (فوق 15 سنة - تحت 60 سنة)",
+          "processing": "8-5 أيام عمل",
+          "validity": "3 اشهر",
+          "price": { "amount": 210, "currency": "USD" }
+        },
+        {
+          "visaType": "موافقه (الطفل تحت 15 سنة والمسن فوق ال 60 سنة)",
+          "processing": "5-3 أيام عمل",
+          "price": { "amount": 45, "currency": "USD" }
+        }
+      ]
+    },
+    "om": {
+      "verified": "2026-10-01",
+      "countryName": "سلطنة عمان (مسقط)",
+      "visaType": "سياحية 10 أيام",
+      "price": { "amount": 30, "currency": "USD" },
+      "duration": "10 أيام",
+      "processing": "7 - 3 يوم عمل",
+      "validity": "60 يوم",
+      "documents": [
+        "صورة شخصية",
         "جواز سكنر",
-        "تتراوح الأسعار بين $45 إلى $210 حسب الفئة العمرية ونوع الموافقة"
+        "البطاقه الموحده",
+        "ذكر اخر دوله سافر ألها",
+        "غرامة التجاوز عن مدة الإقامة 5000$"
+      ],
+      "options": [
+        {
+          "visaType": "سياحية 30 يوم",
+          "duration": "30 يوم",
+          "price": { "amount": 75, "currency": "USD" }
+        }
       ]
     },
-    om: {
-      verified: "2026-03-01",
-      visaType: "سلطنة عمان (مسقط) - سياحية",
-      price: { amount: 30, currency: "USD" },
-      processing: "3 - 7 يوم عمل",
-      documents: [
-        "صورة شخصية وجواز سكنر والبطاقة الموحدة",
-        "ذكر آخر دولة سافر إليها",
-        "غرامة التجاوز 5000$"
-      ]
-    },
-    th: {
-      verified: "2026-03-01",
-      visaType: "تايلند - سياحية",
-      price: { amount: 75, currency: "USD" },
-      processing: "7 - 15 يوم عمل",
-      documents: [
-        "صورة شخصية وجواز سكنر والبطاقة الموحدة",
-        "كشف حساب آخر 3 أشهر"
-      ]
-    },
-    id: {
-      verified: "2026-03-01",
-      visaType: "إندونيسيا - سياحية",
-      price: { amount: 100, currency: "USD" },
-      processing: "7 - 15 يوم عمل",
-      documents: ["صورة شخصية", "جواز سكنر"]
-    },
-    am: {
-      verified: "2026-03-01",
-      visaType: "أرمينيا - سياحية",
-      price: { amount: 20, currency: "USD" },
-      processing: "7 - 15 يوم عمل",
-      documents: [
-        "صورة وجواز سكنر وكشف حساب ودعوة",
-        "يفضل وجود إقامة شنغن",
-        "المبلغ غير مسترجع في حال الرفض"
-      ]
-    },
-    lk: {
-      verified: "2026-03-01",
-      visaType: "سريلانكا - سياحية",
-      price: { amount: 100, currency: "USD" },
-      processing: "2 - 5 أيام عمل",
-      documents: ["جواز سكنر", "صورة شخصية خلفية بيضاء"]
-    },
-    sg: {
-      verified: "2026-03-01",
-      visaType: "سنغافورة - دخول مزدوج",
-      price: { amount: 110, currency: "USD" },
-      processing: "7 - 10 أيام عمل",
-      documents: [
-        "نسخة من جواز السفر وصورة شخصية",
-        "رسالة دعم الوظيفة (بالإنجليزية)",
-        "شهادة التخرج (بالإنجليزية)"
-      ]
-    },
-    ge: {
-      verified: "2026-03-01",
-      visaType: "جورجيا - سياحية",
-      price: { amount: 370, currency: "USD" },
-      processing: "10 - 15 يوم عمل",
-      documents: ["جواز سكنر", "صورة شخصية خلفية بيضاء"]
-    },
-    tz: {
-      verified: "2026-03-01",
-      visaType: "تنزانيا - سياحية",
-      price: { amount: 70, currency: "USD" },
-      processing: "30 - 40 يوم عمل",
-      documents: [
-        "صورة وجواز سكنر",
-        "تحديد تاريخ السفر (الفيزا فعالة من التاريخ المحدد)"
-      ]
-    },
-    kh: {
-      verified: "2026-03-01",
-      visaType: "كمبوديا - سياحية",
-      price: { amount: 60, currency: "USD" },
-      processing: "5 أيام عمل",
-      documents: [
-        "صورة وجواز سكنر وحساب بنكي حركات آخر 3 أشهر",
-        "حجز فندق وتذكرة ذهاب وعودة"
-      ]
-    },
-    ma: {
-      verified: "2026-03-01",
-      visaType: "المغرب - سياحية",
-      price: { amount: 155, currency: "USD" },
-      processing: "2 - 3 أيام عمل",
-      documents: [
-        "جواز سكنر وإقامة إماراتية وجه وظهر",
-        "أو فيزا شنغن متعددة وصالحة"
-      ]
-    },
-    bh: {
-      verified: "2026-03-01",
-      visaType: "البحرين - متعددة",
-      price: { amount: 70, currency: "USD" },
-      processing: "1 - 3 يوم عمل",
-      documents: [
+    "th": {
+      "verified": "2026-10-01",
+      "countryName": "تايلند",
+      "visaType": "سياحية",
+      "price": { "amount": 75, "currency": "USD" },
+      "duration": "30 يوم",
+      "processing": "15 - 7 يوم عمل",
+      "validity": "85 يوم",
+      "documents": [
+        "صورة شخصية",
         "جواز سكنر",
-        "إقامة إماراتية وجه وظهر أو فيزا شنغن"
+        "البطاقه الموحده",
+        "كشف حساب اخر 3 اشهر"
       ]
     },
-    cn: {
-      verified: "2026-03-01",
-      visaType: "الصين - مع دعوة أو بدون دعوة",
-      price: { amount: 350, currency: "USD" },
-      processing: "8 إلى 30 يوم عمل حسب الحالة",
-      documents: [
-        "الجواز الأصلي وصور خلفية بيضاء",
-        "سكنر البطاقة الموحدة وبطاقة السكن",
-        "الدعوة (إن وجدت)"
+    "id": {
+      "verified": "2026-10-01",
+      "countryName": "إندونيسيا",
+      "visaType": "سياحية",
+      "price": { "amount": 100, "currency": "USD" },
+      "duration": "أقامه 60 يوم",
+      "processing": "15 - 7 يوم عمل",
+      "validity": "60 يوم",
+      "documents": ["صورة شخصية - جواز سكنر"]
+    },
+    "am": {
+      "verified": "2026-10-01",
+      "countryName": "أرمينيا",
+      "visaType": "سياحية (21 يوم)",
+      "price": { "amount": 20, "currency": "USD" },
+      "duration": "أقامه 21 يوم",
+      "processing": "15 - 7 أيام عمل",
+      "validity": "90 يوم",
+      "documents": [
+        "صورة - جواز سكنر - كشف حساب - دعوة",
+        "يفضل وجود أقامة شنكن",
+        "المبلغ غير مسترجع في حالة الرفض"
+      ],
+      "options": [
+        {
+          "visaType": "سياحية (120 يوم)",
+          "duration": "أقامه 120 يوم",
+          "price": { "amount": 58, "currency": "USD" }
+        }
       ]
     },
-    tr: {
-      verified: "2026-03-01",
-      visaType: "تركيا - لأصحاب إقامة شنغن أو الأمريكية",
-      price: { amount: 35, currency: "USD" },
-      processing: "خلال 24 ساعة",
-      documents: [
-        "جواز سكنر",
-        "إقامة شنغن أو إقامة أمريكية سارية"
+    "lk": {
+      "verified": "2026-10-01",
+      "countryName": "سريلانكا",
+      "visaType": "سياحية",
+      "price": { "amount": 100, "currency": "USD" },
+      "duration": "الإقامة 30 يوم",
+      "processing": "5 - 2 أيام عمل",
+      "validity": "60 يوم",
+      "documents": ["جواز سكنر - صوره شخصية خلفية بيضاء"]
+    },
+    "sg": {
+      "verified": "2026-10-01",
+      "countryName": "سنغافورة",
+      "visaType": "سياحية",
+      "price": { "amount": 110, "currency": "USD" },
+      "duration": "الإقامة 30 يوم (دخول مزدوج)",
+      "processing": "10 - 7 يوم عمل",
+      "validity": "صلاحية 60 يوم",
+      "documents": [
+        "نسخة من جواز السفر",
+        "صورة شخصية",
+        "رسالة دعم الوظيفة (باللغة الإنجليزية)",
+        "شهادة التخرج (باللغة الإنجليزية)"
       ]
     },
-    sa: {
-      verified: "2026-03-01",
-      visaType: "السعودية - عمرة (عدة مدد)",
-      price: { amount: 158, currency: "USD" },
-      processing: "1 - 5 يوم عمل",
-      documents: [
-        "جواز سكنر حصرا",
-        "صورة شخصية"
+    "ge": {
+      "verified": "2026-10-01",
+      "countryName": "جورجيا",
+      "visaType": "سياحية",
+      "price": { "amount": 370, "currency": "USD" },
+      "duration": "الإقامة 30 يوم",
+      "processing": "15 - 10 يوم عمل",
+      "validity": "90 يوم",
+      "documents": ["جواز سكنر - صوره شخصية خلفية بيضاء"]
+    },
+    "tz": {
+      "verified": "2026-10-01",
+      "countryName": "تنزانيا",
+      "visaType": "سياحية",
+      "price": { "amount": 70, "currency": "USD" },
+      "duration": "30 يوم",
+      "processing": "اصدار خلال 30 - 40 يوم عمل",
+      "validity": "90 يوم",
+      "documents": [
+        "صورة - جواز سكنر",
+        "تحديد تاريخ السفر (الفيزا تكون فعالة من تاريخ المحدد للسفر)"
+      ]
+    },
+    "kh": {
+      "verified": "2026-10-01",
+      "countryName": "كمبوديا",
+      "visaType": "سياحية",
+      "price": { "amount": 60, "currency": "USD" },
+      "duration": "الاقامه 30 يوم",
+      "processing": "الإصدار 5 أيام عمل",
+      "validity": "90 يوم",
+      "documents": [
+        "صورة - جواز سكنر",
+        "حساب بنك حركات اخر 3 اشهر",
+        "حجز فندق - تذكره ذهاب و عوده"
+      ]
+    },
+    "ma": {
+      "verified": "2026-10-01",
+      "countryName": "المغرب",
+      "visaType": "سياحية (إصدار سريع)",
+      "price": { "amount": 155, "currency": "USD" },
+      "duration": "الاقامه 30 يوم",
+      "processing": "الإصدار خلال 2 - 3 أيام",
+      "validity": "صلاحية 60 يوم",
+      "documents": [
+        "جواز سكنر - صوره دقة عاليه",
+        "الاقامه الاماراتيه سكنر وجه و ضهر وفيزا الاقامه الاماراتيه او فيزا شنكن متعدد او أقامه شنكن",
+        "ملاحظه: يجب ان تكون صلاحية الاقامة المرفقة اكثر من 180 يوم ويجب ان تكون الفيزا المرفقة متعددة وصالحة اكثر من 90 يوم من تاريخ الدخول"
+      ],
+      "options": [
+        {
+          "visaType": "سياحية (إصدار عادي)",
+          "processing": "الإصدار خلال 4 - 5 أيام",
+          "price": { "amount": 130, "currency": "USD" }
+        }
+      ]
+    },
+    "bh": {
+      "verified": "2026-10-01",
+      "countryName": "البحرين",
+      "visaType": "صلاحيه ثلاث اشهر متعدد",
+      "price": { "amount": 70, "currency": "USD" },
+      "duration": "متعدد كل سفره أقامة شهر",
+      "processing": "3 - 1 يوم عمل",
+      "validity": "90 يوم",
+      "documents": [
+        "جواز سكنر - صوره دقة عاليه",
+        "الاقامه الاماراتيه سكنر وجه و ضهر او فيزا شنكن متعدد او أقامه شنكن"
+      ],
+      "options": [
+        {
+          "visaType": "صلاحيه سنه متعدد",
+          "duration": "متعدد كل سفره أقامة شهر",
+          "price": { "amount": 150, "currency": "USD" }
+        }
+      ]
+    },
+    "cn": {
+      "verified": "2026-10-01",
+      "countryName": "الصين",
+      "visaType": "في حال وجود دعوة اصدار",
+      "price": { "amount": 350, "currency": "USD" },
+      "duration": "30 يوم",
+      "processing": "من 8 الى 12 يوم عمل",
+      "validity": "90 يوم",
+      "documents": [
+        "1- الجواز الأصلي",
+        "2- صور عدد 2 خلفية بيضاء",
+        "سكنر: بطاقة موحدة وبطاقة السكن",
+        "لمن يملك دعوه: الدعوه الحكومية + المكتبية + الجدارية"
+      ],
+      "options": [
+        {
+          "visaType": "في حال وجود دخول سابق",
+          "processing": "من 25 الى 30 يوم عمل",
+          "price": { "amount": 1650, "currency": "USD" }
+        },
+        {
+          "visaType": "في حال عدم وجود دخول سابق",
+          "price": { "amount": 1950, "currency": "USD" }
+        }
+      ]
+    },
+    "tr": {
+      "verified": "2026-10-01",
+      "countryName": "تركيا",
+      "visaType": "سياحية",
+      "price": { "amount": 35, "currency": "USD" },
+      "duration": "إقامة 30 يوم سفرة واحدة",
+      "processing": "خلال 24 ساعة",
+      "validity": "صلاحية 6 اشهر",
+      "documents": [
+        "1- جواز سكنر",
+        "2- أقامة شنكن او إقامة الامريكية"
+      ]
+    },
+    "sa": {
+      "verified": "2026-10-01",
+      "countryName": "السعودية",
+      "visaType": "عمره (إقامة 10 أيام)",
+      "price": { "amount": 158, "currency": "USD" },
+      "duration": "إقامة 10 أيام",
+      "processing": "5 - 1 يوم عمل",
+      "validity": "سنه متعدد",
+      "documents": ["جواز سكنر حصرا", "صورة شخصية"],
+      "options": [
+        {
+          "visaType": "عمره (إقامة 15 يوم)",
+          "duration": "إقامة 15 يوم",
+          "price": { "amount": 165, "currency": "USD" }
+        },
+        {
+          "visaType": "عمره (إقامة 20 يوم)",
+          "duration": "إقامة 20 يوم",
+          "price": { "amount": 177, "currency": "USD" }
+        },
+        {
+          "visaType": "عمره (إقامة 30 يوم)",
+          "duration": "إقامة 30 يوم",
+          "price": { "amount": 199, "currency": "USD" }
+        },
+        {
+          "visaType": "عمره (إقامة 85 يوم)",
+          "duration": "إقامة 85 يوم",
+          "processing": "7 - 1 يوم عمل",
+          "price": { "amount": 250, "currency": "USD" }
+        }
       ]
     }
-  }
-};countries: {
-    // (empty on purpose: no visa price/requirement has been verified yet)
   }
 };
