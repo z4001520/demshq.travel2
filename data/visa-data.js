@@ -1,65 +1,374 @@
-/* =====================================================================
-   Damashq Travel — VISA DATA (edit this file to publish visa information)
-   ---------------------------------------------------------------------
-   Rules:
-   - Only add a country when its information has been VERIFIED by the company.
-   - Key = ISO 3166-1 alpha-2 code in lowercase (same codes as data/countries.json).
-   - An entry is shown on the website ONLY if it has a `verified` date (YYYY-MM-DD).
-     Entries without `verified` are ignored and the visitor sees the
-     "contact us" message instead. Never publish guesses.
-   - Every field except `verified` is optional; missing fields are simply not shown.
-   - Visa rules often depend on passport nationality. Keep `nationalityNote: true`
-     (the default) unless the rule truly applies to every traveler.
-
-   Entry format (copy, uncomment, fill in with REAL verified values):
-
-   //  tr: {
-   //    verified: "YYYY-MM-DD",              // date the company verified this info (required)
-   //    visaType: "…",                        // e.g. the exact visa category name
-   //    price: { amount: 0, currency: "USD" },// currency code: USD, IQD, EUR …
-   //    processing: "…",                      // verified processing time, free text
-   //    documents: ["…", "…"],                // required documents
-   //    conditions: ["…"],                    // important conditions / restrictions
-   //    nationalityNote: true,                // show "confirm passport nationality" note
-   //    source: "…"                           // internal note: where it was verified (not shown)
-   //  },
-   ===================================================================== */
-window.DAMASHQ_VISA = {
-  messages: {
-    // shown for every country that has no verified entry below
-    noData: "للاستفسار عن سعر التأشيرة والمتطلبات، تواصل معنا",
-    noPrice: "يرجى التواصل لمعرفة السعر",
-    estimateNote: "السعر تقديري وقد يتغير حسب نوع التأشيرة والرسوم والخدمات المطلوبة. يرجى التواصل لتأكيد السعر النهائي.",
-    nationality: "قد تختلف شروط التأشيرة وأسعارها حسب جنسية جواز السفر. يرجى تأكيد جنسية المسافر مع الشركة قبل الحجز."
-  },
-  // number used by the "اتصل بنا" button (tel: link)
-  contact: { tel: "+9647701716661" },
-  // ESTIMATED starting prices in USD (company-supplied, NOT official fees and NOT verified).
-  // Key = lowercase ISO-2 code. Edit/add numbers here; no design change needed.
-  // A country with a full `verified` entry in `countries` below overrides this price.
-  estimatedPrices: {
-    currency: "USD",
-   values: {
-  ae: 90,   // الإمارات
-  jo: 25,   // الأردن
-  eg: 130,  // مصر
-  om: 30,   // سلطنة عمان
-  th: 75,   // تايلند
-  id: 100,  // إندونيسيا
-  am: 20,   // أرمينيا
-  lk: 100,  // سريلانكا
-  sg: 110,  // سنغافورة
-  ge: 370,  // جورجيا
-  tz: 70,   // تنزانيا
-  kh: 60,   // كمبوديا
-  ma: 155,  // المغرب
-  bh: 70,   // البحرين
-  cn: 350,  // الصين
-  tr: 35,   // تركيا
-  sa: 158   // السعودية
-}
-  },
-  currencyLabels: { USD: "$", IQD: "د.ع", EUR: "€", AED: "د.إ", TRY: "₺" },
+const VISA_DATA = {
+    "IQ": {
+        "name": "العراق (دبي والأردن ومصر وبقية الوجهات)",
+        "visas": [
+            {
+                "id": "dubai-30",
+                "title": "فيزا دبي - البالغ إقامة شهر غير متعدد",
+                "duration": "30 يوم",
+                "processing": "1 - 3 يوم عمل",
+                "validity": "60 يوم",
+                "price": "$90",
+                "requirements": [
+                    "جواز سكنر",
+                    "صورة خلفية بيضاء دقة عالية",
+                    "الجنسية العراقية أو البطاقة الموحدة",
+                    "غرامة التجاوز عن مدة الإقامة 2000 دولار"
+                ]
+            },
+            {
+                "id": "dubai-child",
+                "title": "فيزا دبي - الطفل إقامة شهر غير متعدد",
+                "duration": "30 يوم",
+                "processing": "1 - 3 يوم عمل",
+                "validity": "60 يوم",
+                "price": "$45",
+                "requirements": ["جواز سكنر", "صورة خلفية بيضاء"]
+            },
+            {
+                "id": "jordan-single",
+                "title": "فيزة الأردن - سياحي شهر سفرة واحدة",
+                "duration": "30 يوم سفرة وحدة",
+                "processing": "8 - 15 يوم عمل (الجمعة والسبت غير محسوبة)",
+                "validity": "90 يوم من تاريخ الإصدار",
+                "price": "$25",
+                "requirements": [
+                    "جواز سكنر (مطلوب جواز الزوج/ة في حال كان المسافر متزوجاً)",
+                    "الأسعار غير شاملة رسوم دخول الأردن"
+                ]
+            },
+            {
+                "id": "jordan-multi-1",
+                "title": "فيزة الأردن - سياحي شهر متعددة",
+                "duration": "30 يوم سفرة متعددة",
+                "processing": "8 - 15 يوم عمل",
+                "validity": "90 يوم",
+                "price": "$60",
+                "requirements": ["جواز سكنر"]
+            },
+            {
+                "id": "jordan-multi-6m",
+                "title": "فيزة الأردن - سياحي 6 أشهر متعددة",
+                "duration": "6 أشهر",
+                "processing": "8 - 15 يوم عمل",
+                "validity": "متعدد",
+                "price": "$75",
+                "requirements": ["جواز سكنر"]
+            },
+            {
+                "id": "jordan-multi-1y",
+                "title": "فيزة الأردن - سياحي سنة متعددة",
+                "duration": "سنة متعدد",
+                "processing": "8 - 15 يوم عمل",
+                "validity": "متعدد",
+                "price": "$100",
+                "requirements": ["جواز سكنر"]
+            },
+            {
+                "id": "jordan-multi-5y",
+                "title": "فيزة الأردن - سياحي 5 سنوات متعددة",
+                "duration": "5 سنوات متعدد",
+                "processing": "8 - 15 يوم عمل",
+                "validity": "متعدد",
+                "price": "$150",
+                "requirements": ["جواز سكنر"]
+            },
+            {
+                "id": "jordan-vip",
+                "title": "موافقة VIP الأردن",
+                "duration": "30 يوم سفرة وحدة",
+                "processing": "إصدار الموافقة الأمنية في اليوم الثاني الساعة 5 عصراً",
+                "validity": "50 يوم",
+                "price": "$150",
+                "requirements": ["جواز سكنر"]
+            },
+            {
+                "id": "egypt-warar",
+                "title": "موافقة مصر الحربية للبالغ (15 - 60 سنة)",
+                "duration": "30 يوم سفرة وحدة",
+                "processing": "1 - 2 أيام عمل",
+                "validity": "30 يوم",
+                "price": "$130",
+                "requirements": ["جواز سكنر"]
+            },
+            {
+                "id": "egypt-master",
+                "title": "موافقة مصر الماستر للبالغ (15 - 60 سنة)",
+                "duration": "حسب الموافقة",
+                "processing": "5 - 8 أيام عمل",
+                "validity": "3 أشهر",
+                "price": "$210",
+                "requirements": ["جواز سكنر"]
+            },
+            {
+                "id": "egypt-child-senior",
+                "title": "موافقة مصر (طفل تحت 15 سنة أو مسن فوق 60 سنة)",
+                "duration": "حسب الموافقة",
+                "processing": "3 - 5 أيام عمل",
+                "validity": "حسب الإصدار",
+                "price": "$45",
+                "requirements": ["جواز سكنر"]
+            },
+            {
+                "id": "oman-10",
+                "title": "سلطنة عمان (مسقط) - سياحية",
+                "duration": "10 أيام",
+                "processing": "3 - 7 يوم عمل",
+                "validity": "60 يوم",
+                "price": "$30",
+                "requirements": [
+                    "صورة شخصية",
+                    "جواز سكنر",
+                    "البطاقة الموحدة",
+                    "ذكر آخر دولة سافر إليها",
+                    "غرامة التجاوز 5000$"
+                ]
+            },
+            {
+                "id": "oman-30",
+                "title": "سلطنة عمان (مسقط) - 30 يوم",
+                "duration": "30 يوم",
+                "processing": "3 - 7 يوم عمل",
+                "validity": "60 يوم",
+                "price": "$75",
+                "requirements": ["صورة شخصية", "جواز سكنر", "البطاقة الموحدة"]
+            },
+            {
+                "id": "thailand",
+                "title": "تايلند - سياحية",
+                "duration": "30 يوم",
+                "processing": "7 - 15 يوم عمل",
+                "validity": "85 يوم",
+                "price": "$75",
+                "requirements": [
+                    "صورة شخصية",
+                    "جواز سكنر",
+                    "البطاقة الموحدة",
+                    "كشف حساب آخر 3 أشهر"
+                ]
+            },
+            {
+                "id": "indonesia",
+                "title": "إندونيسيا - سياحية",
+                "duration": "إقامة 60 يوم",
+                "processing": "7 - 15 يوم عمل",
+                "validity": "60 يوم",
+                "price": "$100",
+                "requirements": ["صورة شخصية", "جواز سكنر"]
+            },
+            {
+                "id": "armenia-21",
+                "title": "أرمينيا - إقامة 21 يوم",
+                "duration": "إقامة 21 يوم",
+                "processing": "7 - 15 يوم عمل",
+                "validity": "90 يوم",
+                "price": "$20",
+                "requirements": [
+                    "صورة",
+                    "جواز سكنر",
+                    "كشف حساب",
+                    "دعوة",
+                    "يفضل وجود إقامة شنغن",
+                    "المبلغ غير مسترجع في حال الرفض"
+                ]
+            },
+            {
+                "id": "armenia-120",
+                "title": "أرمينيا - إقامة 120 يوم",
+                "duration": "إقامة 120 يوم",
+                "processing": "7 - 15 يوم عمل",
+                "validity": "90 يوم",
+                "price": "$58",
+                "requirements": ["جواز سكنر", "صورة"]
+            },
+            {
+                "id": "sri-lanka",
+                "title": "سريلانكا - سياحية",
+                "duration": "الإقامة 30 يوم",
+                "processing": "2 - 5 أيام عمل",
+                "validity": "60 يوم",
+                "price": "$100",
+                "requirements": ["جواز سكنر", "صورة شخصية خلفية بيضاء"]
+            },
+            {
+                "id": "singapore",
+                "title": "سنغافورة - دخول مزدوج",
+                "duration": "الإقامة 30 يوم",
+                "processing": "7 - 10 أيام عمل",
+                "validity": "60 يوم",
+                "price": "$110",
+                "requirements": [
+                    "نسخة من جواز السفر",
+                    "صورة شخصية",
+                    "رسالة دعم الوظيفة (بالإنجليزية)",
+                    "شهادة التخرج (بالإنجليزية)"
+                ]
+            },
+            {
+                "id": "georgia",
+                "title": "جورجيا - سياحية",
+                "duration": "الإقامة 30 يوم",
+                "processing": "10 - 15 يوم عمل",
+                "validity": "90 يوم",
+                "price": "$370",
+                "requirements": ["جواز سكنر", "صورة شخصية خلفية بيضاء"]
+            },
+            {
+                "id": "tanzania",
+                "title": "تنزانيا - سياحية",
+                "duration": "30 يوم",
+                "processing": "30 - 40 يوم عمل",
+                "validity": "90 يوم",
+                "price": "$70",
+                "requirements": [
+                    "صورة",
+                    "جواز سكنر",
+                    "تحديد تاريخ السفر (الفيزا فعالة من التاريخ المحدد)"
+                ]
+            },
+            {
+                "id": "cambodia",
+                "title": "كمبوديا - سياحية",
+                "duration": "الإقامة 30 يوم",
+                "processing": "5 أيام عمل",
+                "validity": "90 يوم",
+                "price": "$60",
+                "requirements": [
+                    "صورة",
+                    "جواز سكنر",
+                    "حساب بنكي حركات آخر 3 أشهر",
+                    "حجز فندق وتذكرة ذهاب وعودة"
+                ]
+            },
+            {
+                "id": "morocco-1",
+                "title": "المغرب - سياحية (إقامة إماراتية أو شنغن)",
+                "duration": "الإقامة 30 يوم",
+                "processing": "2 - 3 أيام",
+                "validity": "60 يوم",
+                "price": "$155",
+                "requirements": [
+                    "جواز سكنر",
+                    "الإقامة الإماراتية وجه وظهر وفيزا الإقامة",
+                    "أو فيزا شنغن متعدد / إقامة شنغن سارية لأكثر من 180 يوم والفيزا الصالحة لأكثر من 90 يوم"
+                ]
+            },
+            {
+                "id": "bahrain-3m",
+                "title": "البحرين - متعدد صلاحية 3 أشهر",
+                "duration": "متعدد كل سفرة إقامة شهر",
+                "processing": "1 - 3 يوم عمل",
+                "validity": "90 يوم",
+                "price": "$70",
+                "requirements": [
+                    "جواز سكنر",
+                    "الإقامة الإماراتية وجه وظهر أو فيزا شنغن"
+                ]
+            },
+            {
+                "id": "bahrain-1y",
+                "title": "البحرين - متعدد صلاحية سنة",
+                "duration": "متعدد كل سفرة إقامة شهر",
+                "processing": "1 - 3 يوم عمل",
+                "validity": "سنة متعدد",
+                "price": "$150",
+                "requirements": [
+                    "جواز سكنر",
+                    "الإقامة الإماراتية وجه وظهر أو فيزا شنغن"
+                ]
+            },
+            {
+                "id": "china-invite",
+                "title": "الصين - في حال وجود دعوة",
+                "duration": "30 يوم",
+                "processing": "8 إلى 12 يوم عمل",
+                "validity": "90 يوم",
+                "price": "$350",
+                "requirements": [
+                    "الجواز الأصلي",
+                    "صور عدد 2 خلفية بيضاء",
+                    "سكنر للبطاقة الموحدة وبطاقة السكن",
+                    "الدعوة الحكومية + المكتبية + الجدارية"
+                ]
+            },
+            {
+                "id": "china-nodoc-yes",
+                "title": "الصين - بدون دعوة (مع دخول سابق)",
+                "duration": "30 يوم",
+                "processing": "25 إلى 30 يوم عمل",
+                "validity": "90 يوم",
+                "price": "$1650",
+                "requirements": ["جواز سكنر", "إثبات دخول سابق"]
+            },
+            {
+                "id": "china-nodoc-no",
+                "title": "الصين - بدون دعوة (بدون دخول سابق)",
+                "duration": "30 يوم",
+                "processing": "25 إلى 30 يوم عمل",
+                "validity": "90 يوم",
+                "price": "$1950",
+                "requirements": ["جواز سكنر"]
+            },
+            {
+                "id": "turkey",
+                "title": "تركيا - إقامة شنغن أو أمريكية",
+                "duration": "إقامة 30 يوم سفرة واحدة",
+                "processing": "خلال 24 ساعة",
+                "validity": "6 أشهر",
+                "price": "$35",
+                "requirements": [
+                    "جواز سكنر",
+                    "إقامة شنغن أو إقامة أمريكية"
+                ]
+            },
+            {
+                "id": "saudi-10",
+                "title": "السعودية - عمرة (إقامة 10 أيام)",
+                "duration": "إقامة 10 أيام",
+                "processing": "1 - 5 يوم عمل",
+                "validity": "سنة متعدد",
+                "price": "$158",
+                "requirements": ["جواز سكنر حصرا", "صورة شخصية"]
+            },
+            {
+                "id": "saudi-15",
+                "title": "السعودية - عمرة (إقامة 15 يوم)",
+                "duration": "إقامة 15 يوم",
+                "processing": "1 - 5 يوم عمل",
+                "validity": "سنة متعدد",
+                "price": "$165",
+                "requirements": ["جواز سكنر حصرا", "صورة شخصية"]
+            },
+            {
+                "id": "saudi-20",
+                "title": "السعودية - عمرة (إقامة 20 يوم)",
+                "duration": "إقامة 20 يوم",
+                "processing": "1 - 5 يوم عمل",
+                "validity": "سنة متعدد",
+                "price": "$177",
+                "requirements": ["جواز سكنر حصرا", "صورة شخصية"]
+            },
+            {
+                "id": "saudi-30",
+                "title": "السعودية - عمرة (إقامة 30 يوم)",
+                "duration": "إقامة 30 يوم",
+                "processing": "1 - 5 يوم عمل",
+                "validity": "سنة متعدد",
+                "price": "$199",
+                "requirements": ["جواز سكنر حصرا", "صورة شخصية"]
+            },
+            {
+                "id": "saudi-85",
+                "title": "السعودية - عمرة (إقامة 85 يوم)",
+                "duration": "إقامة 85 يوم",
+                "processing": "1 - 7 يوم عمل",
+                "validity": "سنة متعدد",
+                "price": "$250",
+                "requirements": ["جواز سكنر حصرا", "صورة شخصية"]
+            }
+        ]
+    }
+};
   countries: {
     // (empty on purpose: no visa price/requirement has been verified yet)
   }
