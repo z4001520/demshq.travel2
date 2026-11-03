@@ -720,5 +720,85 @@ $$('input[type=date]').forEach(i=>i.min=new Date().toISOString().slice(0,10));
 <script src="data/visa-data.js" defer></script>
 <script src="data/country-extras.js" defer></script>
 <script src="js/visa-explorer.js" defer></script>
+
+<script>
+/* Visa Explorer only: use the dedicated WhatsApp contact number.
+   Other WhatsApp links across the site remain unchanged. */
+(() => {
+  const VX_WA_NUMBER = '9647506622144';
+  const panel = document.getElementById('vx-panel');
+  if (!panel) return;
+
+  const isWhatsAppUrl = value =>
+    /(?:wa\.me\/|api\.whatsapp\.com\/send|web\.whatsapp\.com\/send)/i.test(value || '');
+
+  const updateWhatsAppLinks = () => {
+    panel.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href') || '';
+      if (!isWhatsAppUrl(href)) return;
+      try {
+        const url = new URL(href, location.href);
+        if (/wa\.me$/i.test(url.hostname)) {
+          url.pathname = '/' + VX_WA_NUMBER;
+        } else {
+          url.searchParams.set('phone', VX_WA_NUMBER);
+        }
+        link.href = url.toString();
+      } catch (_) {
+        link.href = 'https://wa.me/' + VX_WA_NUMBER;
+      }
+    });
+  };
+
+  // Catch links created later by the external Visa Explorer script.
+  updateWhatsAppLinks();
+  new MutationObserver(updateWhatsAppLinks).observe(panel, {
+    childList: true, subtree: true, attributes: true, attributeFilter: ['href']
+  });
+
+  // Also catch a dynamically generated contact button if its script uses a click handler.
+  document.addEventListener('click', event => {
+    const control = event.target.closest('#vx-panel a, #vx-panel button, #vx-panel [role="button"]');
+    if (!control) return;
+
+    const href = control.getAttribute('href') || '';
+    const inlineAction = control.getAttribute('onclick') || '';
+    const label = (control.innerText || control.getAttribute('aria-label') || '').trim();
+    const looksLikeWhatsApp =
+      isWhatsAppUrl(href) ||
+      /whatsapp|wa\.me|\bwa\s*\(/i.test(inlineAction) ||
+      /واتساب|تواصل|استفسار|احجز|اتصل/i.test(label);
+
+    if (!looksLikeWhatsApp) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    let message = '';
+    try {
+      if (isWhatsAppUrl(href)) {
+        const url = new URL(href, location.href);
+        message = url.searchParams.get('text') || '';
+      }
+    } catch (_) {}
+
+    if (!message) {
+      const heading = panel.querySelector('h1, h2, h3, h4, .vx-country-name, [data-country-name]');
+      const country = heading ? heading.textContent.trim() : '';
+      message = country
+        ? `مرحباً، أود الاستفسار عن تأشيرة ${country}.`
+        : 'مرحباً، أود الاستفسار عن التأشيرات من خلال مستكشف التأشيرات.';
+    }
+
+    window.open(
+      'https://wa.me/' + VX_WA_NUMBER + '?text=' + encodeURIComponent(message),
+      '_blank',
+      'noopener'
+    );
+  }, true);
+})();
+</script>
+
 </body>
 </html>
