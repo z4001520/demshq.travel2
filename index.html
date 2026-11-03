@@ -752,8 +752,11 @@ $$('input[type=date]').forEach(i=>i.min=new Date().toISOString().slice(0,10));
 
   // Catch links created later by the external Visa Explorer script.
   updateWhatsAppLinks();
+  // Watch only for newly added Visa Explorer content. Do not observe href
+  // attributes here, because this script itself updates href and could retrigger
+  // the observer repeatedly.
   new MutationObserver(updateWhatsAppLinks).observe(panel, {
-    childList: true, subtree: true, attributes: true, attributeFilter: ['href']
+    childList: true, subtree: true
   });
 
   // Also catch a dynamically generated contact button if its script uses a click handler.
