@@ -39,11 +39,25 @@ window.DAMASHQ_VISA = {
   // A country with a full `verified` entry in `countries` below overrides this price.
   estimatedPrices: {
     currency: "USD",
-    values: {
-      tr: 50, ae: 120, sa: 100, qa: 80, jo: 60, eg: 50, lb: 50, ge: 40, az: 60, th: 70,
-      my: 40, id: 70, in: 60, cn: 100, gb: 200, fr: 180, de: 180, it: 180, es: 180, gr: 170,
-      nl: 180, ch: 180, us: 250, ca: 200, au: 180
-    }
+   values: {
+  ae: 90,   // الإمارات
+  jo: 25,   // الأردن
+  eg: 130,  // مصر
+  om: 30,   // سلطنة عمان
+  th: 75,   // تايلند
+  id: 100,  // إندونيسيا
+  am: 20,   // أرمينيا
+  lk: 100,  // سريلانكا
+  sg: 110,  // سنغافورة
+  ge: 370,  // جورجيا
+  tz: 70,   // تنزانيا
+  kh: 60,   // كمبوديا
+  ma: 155,  // المغرب
+  bh: 70,   // البحرين
+  cn: 350,  // الصين
+  tr: 35,   // تركيا
+  sa: 158   // السعودية
+}
   },
   currencyLabels: { USD: "$", IQD: "د.ع", EUR: "€", AED: "د.إ", TRY: "₺" },
   countries: {
